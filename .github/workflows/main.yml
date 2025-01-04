@@ -1,12 +1,9 @@
 name: Publish Docker Image main
 
 on:
+  push:
   workflow_dispatch:
-    inputs:
-      version:
-        description: ''
-        required: false
-        default: ''
+
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -23,7 +20,6 @@ jobs:
       
       - name: Clone WSL2 Linux Kernel Repository
         run: |
-          cd /root
           git clone https://github.com/microsoft/WSL2-Linux-Kernel.git
   
       - name: Checkout Specific Branch
@@ -33,10 +29,11 @@ jobs:
 
       - name: Copy .config File
         run: |
-          cp .config /root/WSL2-Linux-Kernel
+          cp .config WSL2-Linux-Kernel/.config
+    
       - name: Build Project
         run: |
-          make -j 1
+          make -j 2
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
