@@ -23,9 +23,23 @@ jobs:
       
       - name: Clone WSL2 Linux Kernel Repository
         run: |
+          cd /root
           git clone https://github.com/microsoft/WSL2-Linux-Kernel.git
   
       - name: Checkout Specific Branch
         run: |
           cd WSL2-Linux-Kernel
-          git checkout linux-msft-wsl-6.6.y
+          git checkout linux-msft-wsl-5.15.y
+
+      - name: Copy .config File
+        run: |
+          cp .config /root/WSL2-Linux-Kernel
+      - name: Build Project
+        run: |
+          make -j 1
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: bzImage  # 构建产物的名称
+          path: /root/WSL2-Linux-Kernel/arch/x86/boot/bzImage  # 要上传的文件路径
