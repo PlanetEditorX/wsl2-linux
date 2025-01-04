@@ -20,3 +20,12 @@ jobs:
       - name: Install Required Packages
         run: |
           sudo apt -y install build-essential libncurses-dev bison flex libssl-dev libelf-dev cpu-checker qemu-kvm libvirtd virt-manager git
+      
+      - name: Clone WSL2 Linux Kernel Repository
+        run: |
+          git clone https://github.com/microsoft/WSL2-Linux-Kernel.git
+  
+      - name: Checkout Specific Branch
+        run: |
+          cd WSL2-Linux-Kernel
+          git checkout linux-msft-wsl-6.6.y
