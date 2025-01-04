@@ -33,10 +33,11 @@ jobs:
     
       - name: Build Project
         run: |
+          cd WSL2-Linux-Kernel
           make -j 2
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: bzImage  # 构建产物的名称
-          path: /root/WSL2-Linux-Kernel/arch/x86/boot/bzImage  # 要上传的文件路径
+          path: WSL2-Linux-Kernel/arch/x86/boot/bzImage  # 要上传的文件路径
