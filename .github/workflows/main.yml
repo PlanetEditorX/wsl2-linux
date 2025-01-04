@@ -1,0 +1,22 @@
+name: Publish Docker Image main
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: ''
+        required: false
+        default: ''
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update and Upgrade Packages
+        run: |
+          sudo apt update && sudo apt -y upgrade
+
+      - name: Install Required Packages
+        run: |
+          sudo apt -y install build-essential libncurses-dev bison flex libssl-dev libelf-dev cpu-checker qemu-kvm libvirtd virt-manager git
